@@ -1,19 +1,20 @@
 import { Badge } from "@/components/ui/badge";
 import TaskCard from "@/components/task-card";
-import type { Task, TaskStatus } from "@/store/task-store";
+import type { Doc } from "../../convex/_generated/dataModel";
 
 type ColumnProps = {
   title: string;
-  status: TaskStatus;
-  tasks: Task[];
+  status: string;
+  tasks: Doc<"tasks">[];
 };
 
 function Column({ title, status, tasks }: ColumnProps) {
-  const borderColor = {
+  const borderColor: Record<string, string> = {
     todo: "border-l-blue-500",
     "in-progress": "border-l-amber-500",
     done: "border-l-green-500",
-  }[status];
+  };
+    
 
   return (
     <div className={`rounded-lg border-l-4 bg-muted/50 p-4 ${borderColor}`}>
@@ -29,7 +30,7 @@ function Column({ title, status, tasks }: ColumnProps) {
             No tasks
           </p>
         ) : (
-          tasks.map((task) => <TaskCard key={task.id} task={task} />)
+          tasks.map((task) => <TaskCard key={task._id} task={task} />)
         )}
       </div>
     </div>
