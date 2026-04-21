@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,10 +19,12 @@ function AddTaskDialog() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const createTask = useMutation(api.tasks.create);
+
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!title.trim()) return;
-    addTask(title.trim(), description.trim());
+    createTask({title: title.trim(), description: description.trim()});
     setTitle("");
     setDescription("");
     setOpen(false);
