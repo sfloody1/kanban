@@ -51,10 +51,10 @@ function TaskCard({ task }: TaskCardProps) {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      {task.descriptions && (
+      {task.description && (
         <CardContent>
           <p className="line-clamp-2 text-sm text-muted-foreground">
-            {task.descriptions}
+            {task.description}
           </p>
         </CardContent>
       )}
