@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import TaskCard from "@/components/task-card";
 import type { Doc } from "../../convex/_generated/dataModel";
+import { useDroppable } from "@dnd-kit/core";
 
 type ColumnProps = {
   title: string;
@@ -9,6 +10,8 @@ type ColumnProps = {
 };
 
 function Column({ title, status, tasks }: ColumnProps) {
+  const { setNodeRef, isOver } = useDroppable({ id: status });
+
   const borderColor: Record<string, string> = {
     todo: "border-l-blue-500",
     "in-progress": "border-l-amber-500",
@@ -17,7 +20,9 @@ function Column({ title, status, tasks }: ColumnProps) {
     
 
   return (
-    <div className={`rounded-lg border-l-4 bg-muted/50 p-4 ${borderColor}`}>
+    <div 
+    ref={setNodeRef}
+    className={`rounded-lg border-l-4 bg-muted/50 p-4 ${borderColor[status]}`}>
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
           {title}
