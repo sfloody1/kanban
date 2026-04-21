@@ -1,7 +1,9 @@
-import { useStore } from "@tanstack/react-store";
-import { taskStore, type TaskStatus } from "@/store/task-store";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 import Column from "@/components/column";
 import AddTaskDialog from "@/components/add-task-dialog";
+
+type TaskStatus = "todo" | "in-progress" | "done";
 
 const COLUMNS: { title: string; status: TaskStatus }[] = [
   { title: "To Do", status: "todo" },
@@ -10,7 +12,11 @@ const COLUMNS: { title: string; status: TaskStatus }[] = [
 ];
 
 function KanbanBoard() {
-  const tasks = useStore(taskStore, (state) => state);
+  const tasks = useQuery(api.tasks.list);
+
+  if (tasks === undefined) {
+    return <p className="text-muted-foreground">Loading tasks...</p>;
+  }
 
   return (
     <div>
