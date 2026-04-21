@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { addTask } from "@/store/task-store";
 
 function AddTaskDialog() {
   const [open, setOpen] = useState(false);
